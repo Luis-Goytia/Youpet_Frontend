@@ -1,0 +1,30 @@
+
+.back_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img_container {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px white solid;
+}
+.img_user {
+  height: 100%;
+}
+
+.selectButton {
+  display:none;
+}
+
+label.selectLabel{
+  margin: 0;
+  
+}
+

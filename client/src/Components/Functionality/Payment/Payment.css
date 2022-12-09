@@ -1,0 +1,13 @@
+.pay{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    min-height: 300px;
+    justify-content: center;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

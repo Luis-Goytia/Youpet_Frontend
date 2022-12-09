@@ -1,0 +1,104 @@
+.vet-form-comment {
+    resize: none;
+    width: 80%;
+    height: 60%;
+    border-radius: 10px;
+    text-indent: 0.5rem;
+    padding: 0.5rem;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+}
+
+.vet-cards {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.vet-card-detail {
+    background-color: white;
+    border-radius: 15px;
+    margin: 2% 0;
+    box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    width: 40%;
+    height: 85vh;
+}
+
+.vet-profile-photo {
+    width: 30vh;
+    height: 30vh;
+    border-radius: 50%;
+}
+
+.vet-profile-name,
+.client-name {
+    color: black;
+}
+
+.client-name {
+    margin-top: 1rem;
+    height: 30%;
+    width: 100%;
+}
+
+.client-comment {
+    height: 70%;
+    width: 100%;
+}
+
+.vet-speciality,
+.client-comment {
+    color: rgb(91, 91, 91);
+    font-size: 2rem;
+    text-align: center;
+    padding: 0 2rem 2rem 2rem;
+}
+
+.vet-comments {
+    width: 50%;
+    height: 85vh;
+    position: relative;
+}
+
+.comment-cards {
+    background-color: white;
+    border-radius: 15px;
+    width: 80%;
+    min-height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2% 0 0 0;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.user-comments {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    overflow-y: auto;
+    max-height: 75%;
+    padding-top: 3%;
+}
+
+.input-card {
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+}

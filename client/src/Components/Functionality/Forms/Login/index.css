@@ -1,0 +1,35 @@
+.login {
+  width: 600px;
+  min-height: 420px;
+  position: relative;
+  background: rgba(161, 229, 250, 0.8);
+  font-size: 24px;
+  border-radius: 5%;
+  position: relative;
+  margin-top: 7rem;
+  display: flex;
+  justify-content: center;
+}
+
+
+.containerlogin {
+  display: flex;
+  justify-content: center;
+}
+
+.backgroud {
+  /* background-image: url(./Images/back.jpg); */
+  background-image: url("../../../../img/background.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+
+}

@@ -1,0 +1,22 @@
+.grid-fluid {
+  display: grid;
+  width: 80%;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  padding: 10px;
+}
+
+h1 {
+  color: #D94A98;
+}
+
+
+.cardl-list {
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+
+}
+
+.buttonbar{
+  margin-top: 35px;
+}
