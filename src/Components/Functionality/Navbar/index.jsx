@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import logo from "../../../img/logo.png";
 import {
@@ -14,14 +14,10 @@ import "./Navbar.css";
 
 export default function NavBar() {
   const dispatch = useDispatch();
-  const { search } = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
-  let query = new URLSearchParams(search);
-  console.log(query);
   const users = useSelector((state) => state.users);
   const myuser = useSelector((state) => state.myuser);
-  console.log(myuser);
   const [name, setName] = useState("");
 
   useEffect(() => {
