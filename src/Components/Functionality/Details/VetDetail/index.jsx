@@ -8,7 +8,7 @@ export default function VetDetail() {
   let { id } = useParams();
   const dispatch = useDispatch();
   const vet = useSelector((state) => state.vetDetail);
-  const [, navigate] = useLocation();
+  //const [, navigate] = useLocation();
 
   const addFav = (id) => {
     //if (no esta logeado) {
