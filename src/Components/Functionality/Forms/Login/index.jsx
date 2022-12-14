@@ -50,7 +50,7 @@ export default function Login() {
             return errors;
           }}
           onSubmit={(value) => {
-            axios.post("http://localhost:3001/login/", value).then((res) => {
+            axios.post("https://youpet-production.up.railway.app/login/", value).then((res) => {
               localStorage.setItem("jwt", res.data.data);
               dispatch(getMyUser());
               navigate("/");
