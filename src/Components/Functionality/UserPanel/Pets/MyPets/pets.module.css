@@ -1,0 +1,13 @@
+.tableImg {
+  width: 45px;
+  height: 45px;
+}
+
+.container {
+  max-width: 600px;
+  width: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}

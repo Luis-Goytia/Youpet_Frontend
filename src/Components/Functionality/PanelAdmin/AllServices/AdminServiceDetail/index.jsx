@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { ColorModeContext, tokens, useMode } from "../../theme";
-import { Box, CssBaseline, ThemeProvider, useTheme, Grid } from "@mui/material";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import { useNavigate } from "react-router"
+import { ColorModeContext, useMode } from "../../theme";
+import { Box, CssBaseline, ThemeProvider, Grid, Button } from "@mui/material";
 
 import Header from "../../Header";
-import { getServiceDetail } from "../../../../../Redux/actions";
+import { deleteService, getServiceDetail } from "../../../../../Redux/actions";
 
 export default function AdminServiceDetail() {
   const { id } = useParams();
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const service = useSelector((state) => state.serviceDetail);
   const [theme, colorMode] = useMode();
+
+  function delService() {
+    dispatch(deleteService(id));
+    var respuesta = window.confirm("Confirm delete?");
+    if (respuesta) alert("Service deleted");
+    else alert("You are not allowed to delete");
+    navigate("/admin/services");
+  }
 
   useEffect(() => {
     dispatch(getServiceDetail(id));
@@ -26,12 +34,17 @@ export default function AdminServiceDetail() {
         <Box>
           <Box p="20px">
             <Link
-              to="/admin/users"
+              to="/admin/services"
               type="button"
-              className="text-decoration-none"
+              className="text-decoration-none btn btn-primary"
             >
-              Back to users
+              Back to services
             </Link>
+          </Box>
+          <Box p="20px">
+            <Button variant="contained" color="error" onClick={(event)=>delService(event)}>
+              Delete Service
+            </Button>
           </Box>
           <Header title="Services" subtitle="Managing the services" />
         </Box>
@@ -46,7 +59,6 @@ export default function AdminServiceDetail() {
             <h3>{service.name}</h3>
           </Box>
           <Grid container spacing={2} justifyContent="center" alignItems="center">
-            <Box>
               <Grid item lg={3}>
                   <Box>
                     <h3>Type:</h3>
@@ -66,12 +78,11 @@ export default function AdminServiceDetail() {
                 </Box>
               </Grid>
               <Grid item lg={8}>
-                <Box m="200px">
+                <Box m="20px">
                   <h3>Detail:</h3>
                   <h3>{service.detail}</h3>
                 </Box>
               </Grid>
-            </Box>
           </Grid>
         </Box>
       </ThemeProvider>

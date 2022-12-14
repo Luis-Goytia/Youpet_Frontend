@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { getMyUser, getUserByEmail } from "../../../../Redux/actions";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import logo from "../../../../img/logo.png";
+import { getMyUser, getUserByEmail } from "../../../../Redux/actions";
 import "./index.css";
 export default function Login() {
-  const [formSuccess, setFormSuccess] = useState(false);
+  const [formSuccess] = useState(false);
 
-  const [email, setEmail] = useState(" ");
+  const [email] = useState(" ");
   const dispatch = useDispatch();
   let user = useSelector((state) => state.user);
 
@@ -31,21 +31,21 @@ export default function Login() {
           validate={(values) => {
             let errors = {};
             if (!values.email) {
-              errors.email = "Por favor ingresa un email";
+              errors.email = "Please enter an email";
             } else if (
               !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
                 values.email
               )
             ) {
-              errors.email = "Solo puedes ingresar un email valido";
+              errors.email = "You can only enter a valid email";
             }
             if (!values.password) {
-              errors.password = "Por favor ingresa una contraseña";
+              errors.password = "Please enter a password";
             } else if (
               values.password.length < 5 ||
               values.password.length > 16
             ) {
-              errors.password = "Debe tener al menos 5 digitos";
+              errors.password = "Must have at least 5 digits";
             }
             return errors;
           }}
@@ -54,7 +54,14 @@ export default function Login() {
               localStorage.setItem("jwt", res.data.data);
               dispatch(getMyUser());
               navigate("/");
-            }, 3000);
+            }).catch((error) => {
+              Swal.fire({
+                icon: "error",
+                title: "existe un error",
+                text: `${error.response.data}`,
+              })
+            }
+            );
           }}
         >
           {({ errors }) => (
@@ -65,7 +72,7 @@ export default function Login() {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="InputEmail1" className="form-label">
-                    Email address
+                    Email
                   </label>
                   <Field
                     type="email"
@@ -80,9 +87,6 @@ export default function Login() {
                       <p className="text-danger">{errors.email}</p>
                     )}
                   />
-                  <div id="emailHelp" className="form-text">
-                    We'll never share your email with anyone else.
-                  </div>
                 </div>
                 <div className="mb-4">
                   <label htmlFor="inputPassword" className="form-label">
@@ -101,11 +105,17 @@ export default function Login() {
                     )}
                   />
                 </div>
+                <div>
+                  <span>If you are not registered, </span>
+                  <Link to={"/reguser"}>
+                    <span>click here</span>
+                  </Link>
+                </div>
                 <button type="submit" className="btn btn-primary ">
                   Submit
                 </button>
                 {formSuccess && (
-                  <p className="text-success">¡Bienvenido {user.name}!</p>
+                  <p className="text-success">¡Welcome {user.name}!</p>
                 )}
               </Form>
             </div>

@@ -1,23 +1,41 @@
 import axios from "axios";
 import {
-  ADD_FAVORITES, CLEAR_DETAILS,
-  CLEAR_TURN, CREATE_ADMIN, CREATE_PET, CREATE_SERVICE, CREATE_TURN, CREATE_USER, CREATE_VET, DELETE_ADMIN, DELETE_PET, DELETE_SERVICE, DELETE_TURN, DELETE_VET, FILTER_SERVICE, GET_ADMINS,
-  GET_ADMIN_BY_NAME,
-  GET_ADMIN_DETAIL, GET_All_TURN, GET_MYUSER, GET_PAYMENT_MP,
+  ADD_FAVORITES,
+  CLEAR_DETAILS,
+  CLEAR_TURN,
+  CREATE_PET,
+  CREATE_SERVICE,
+  CREATE_TURN,
+  CREATE_VET,
+  DELETE_PET,
+  DELETE_SERVICE,
+  DELETE_TURN,
+  DELETE_VET,
+  FILTER_SERVICE,
+  GET_All_TURN,
+  GET_MYUSER,
+  GET_PAYMENT_MP,
   GET_PETS,
   GET_PET_DETAIL,
   GET_SERVICES,
   GET_SERVICE_BY_NAME,
   GET_SERVICE_DETAIL,
   GET_TURN,
+  GET_USER_TURN,
   GET_USERS,
   GET_USER_BY_EMAIL,
   GET_USER_BY_NAME,
   GET_USER_DETAIL,
   GET_VETS,
   GET_VET_BY_NAME,
-  GET_VET_DETAIL, UPDATE_ADMIN,
-  UPDATE_SERVICE, UPDATE_TURN, UPDATE_USER, UPDATE_VET
+  GET_VET_DETAIL,
+  UPDATE_SERVICE,
+  UPDATE_USER,
+  UPDATE_USER_BYPANEL,
+  UPDATE_VET,
+  GET_USER_PETS,
+  REMOVE_PET,
+  CANCEL_TURN
 } from "./const";
 const instance = axios.create({
   baseURL: "https://youpet-production.up.railway.app",
@@ -37,6 +55,15 @@ export function getPets() {
     });
   };
 }
+export function getUserPets(UserId) {
+  return async function (dispatch) {
+    let json = await instance.get(`/pet/user/${UserId}`);
+    return dispatch({
+      type: GET_USER_PETS,
+      payload: json.data,
+    });
+  };
+}
 
 export function getPetDetail(id) {
   return async function (dispatch) {
@@ -48,12 +75,31 @@ export function getPetDetail(id) {
   };
 }
 
-export function createPet(payload) {
+
+export function clearCreatePet() {
   return async function (dispatch) {
-    let json = await axios.post("/admin", payload);
+    let json = "nada" ;
     return dispatch({
       type: CREATE_PET,
-      payload: json.data,
+      payload: json,
+    });
+  };
+}
+
+export function createPet(payload) {
+  return async function (dispatch) {
+    let json = "" ;
+    try {
+      await instance.post("/pet", payload);
+      json = "ok"
+    } catch (error) {
+      json = "error"
+    }
+
+    
+    return dispatch({
+      type: CREATE_PET,
+      payload: json,
     });
   };
 }
@@ -107,9 +153,9 @@ export function createVet(payload) {
   };
 }
 
-export function updateVet(id) {
+export function updateVet(id, payload) {
   return async function (dispatch) {
-    var json = await axios.put(`/vet/${id}`);
+    var json = await axios.put(`/vet/${id}`, payload);
     return dispatch({
       type: UPDATE_VET,
       payload: json.data,
@@ -166,9 +212,9 @@ export function createService(payload) {
   };
 }
 
-export function updateService(id) {
+export function updateService(id, payload) {
   return async function (dispatch) {
-    var json = await axios.put(`/service/${id}`);
+    var json = await axios.put(`/service/${id}`, payload);
     return dispatch({
       type: UPDATE_SERVICE,
       payload: json.data,
@@ -235,19 +281,9 @@ export function getUserByEmail(email) {
   };
 }
 
-export function createUser(payload) {
+export function updateUser(id, payload) {
   return async function (dispatch) {
-    let json = await axios.post("/admin", payload);
-    return dispatch({
-      type: CREATE_USER,
-      payload: json.data,
-    });
-  };
-}
-
-export function updateUser(id) {
-  return async function (dispatch) {
-    var json = await axios.put(`/user/${id}`);
+    var json = await instance.put(`/user/${id}`, payload);
     return dispatch({
       type: UPDATE_USER,
       payload: json.data,
@@ -255,64 +291,6 @@ export function updateUser(id) {
   };
 }
 
-export function getAdmins() {
-  return async function (dispatch) {
-    let json = await instance.get("/admin");
-    return dispatch({
-      type: GET_ADMINS,
-      payload: json.data,
-    });
-  };
-}
-
-export function getAdminDetail(id) {
-  return async function (dispatch) {
-    let json = await instance.get(`/admin/${id}`);
-    return dispatch({
-      type: GET_ADMIN_DETAIL,
-      payload: json.data,
-    });
-  };
-}
-export function getAdminByName(name) {
-  return async function (dispatch) {
-    let json = await instance.get(`/admin?name=${name}`);
-    return dispatch({
-      type: GET_ADMIN_BY_NAME,
-      payload: json.data,
-    });
-  };
-}
-
-export function createAdmin(payload) {
-  return async function (dispatch) {
-    let json = await axios.post("/admin", payload);
-    return dispatch({
-      type: CREATE_ADMIN,
-      payload: json.data,
-    });
-  };
-}
-
-export function updateAdmin(id) {
-  return async function (dispatch) {
-    var json = await axios.delete(`/admin/${id}`);
-    return dispatch({
-      type: UPDATE_ADMIN,
-      payload: json.data,
-    });
-  };
-}
-
-export function deleteAdmin(id) {
-  return async function (dispatch) {
-    var json = await axios.delete(`/admin/${id}`);
-    return dispatch({
-      type: DELETE_ADMIN,
-      payload: json.data,
-    });
-  };
-}
 
 export function createTurn(payload) {
   return async function (dispatch) {
@@ -328,11 +306,6 @@ export function getTurn(payload) {
   const { vetSelect, servId } = payload;
   return async function (dispatch) {
     let json = await instance.get(`/turn/${vetSelect}/${servId}`);
-
-    //let json = await axios.get(
-    //`/turn/${vetSelect}/${servId}`
-    //);
-
     return dispatch({
       type: GET_TURN,
       payload: json.data,
@@ -340,21 +313,12 @@ export function getTurn(payload) {
   };
 }
 
+
 export function getAllTurn(payload) {
   return async function (dispatch) {
     let json = await axios.get(`/turn/`);
     return dispatch({
       type: GET_All_TURN,
-      payload: json.data,
-    });
-  };
-}
-
-export function updateTurn(id) {
-  return async function (dispatch) {
-    var json = await axios.delete(`/turn/${id}`);
-    return dispatch({
-      type: UPDATE_TURN,
       payload: json.data,
     });
   };
@@ -391,17 +355,12 @@ export function filterService(payload) {
   };
 }
 
-// export function filterVets(payload) {
-//   return {
-//     type: FILTER_VETS,
-//     payload
-//   };
-// }
-
 export function getPaymentMP(service) {
   return async function (dispatch) {
-    //let json = await axios.post(`/payment/mp/552525`,service);
-    let json = await instance.post(`/payment/mp/552525`, service);
+    let json = await instance.post(
+      `/payment/mp/552525`,
+      service
+    );
     return dispatch({
       type: GET_PAYMENT_MP,
       payload: json.data,
@@ -411,10 +370,117 @@ export function getPaymentMP(service) {
 
 export function addFavorites(id, userid) {
   return async function (dispatch) {
-    let json = await axios.post(`/vet/addFavorite`, { id, userid })
+    let json = await axios.post(`/vet/addFavorite`, {
+      id,
+      userid,
+    });
     return dispatch({
       type: ADD_FAVORITES,
       payload: json.data
     })
   }
+}
+
+
+export function removeFav(id, userid) {
+  return async function (dispatch) {
+    let json = await axios.post(`/vet/removeFavorite`, {
+      id,
+      userid,
+    });
+    return dispatch({
+      type: GET_VET_DETAIL,
+      payload: json.data,
+    });
+  };
+}
+
+
+export function clearUpdateUserByPanel() {
+  return async function (dispatch) {
+    let json = "nada" ;
+    return dispatch({
+      type: UPDATE_USER_BYPANEL,
+      payload: json,
+    });
+  };
+}
+
+export function updateUserByPanel(payload, id) {
+  return async function (dispatch) {
+    let json = "" ;
+    try {
+      await instance.put(`/user/${id}`, payload);
+      json = "ok"
+    } catch (error) {
+      json = "error"
+    }
+    return dispatch({
+      type: UPDATE_USER_BYPANEL,
+      payload: json,
+    });
+  };
+}
+export function clearRemovePet() {
+  return async function (dispatch) {
+    let json = "nada" ;
+    return dispatch({
+      type: REMOVE_PET,
+      payload: json,
+    });
+  };
+}
+
+export function removePetUser(id) {
+  return async function (dispatch) {
+    let json = "" ;
+    try {
+      await instance.delete(`/pet/${id}`);
+      json = "ok"
+    } catch (error) {
+      json = "error"
+    }
+    return dispatch({
+      type: REMOVE_PET,
+      payload: json,
+    });
+  };
+}
+
+
+export function getUserTurns(id) {
+  return async function (dispatch) {
+    let json = await instance.get(`/turn/user/${id}`);
+    return dispatch({
+      type: GET_USER_TURN,
+      payload: json.data,
+    });
+  };
+}
+
+
+export function clearCancelTurnUser() {
+  return async function (dispatch) {
+    let json = "nada" ;
+    return dispatch({
+      type: CANCEL_TURN,
+      payload: json,
+    });
+  };
+}
+
+export function cancelTurnUser(id) {
+  return async function (dispatch) {
+    let json = "" ;
+    try {
+      await instance.delete(`/turn/${id}`);
+      json = "ok"
+    } catch (error) {
+      json = "error"
+    }
+    return dispatch({
+      type: CANCEL_TURN,
+      payload: json,
+    });
+  };
 }

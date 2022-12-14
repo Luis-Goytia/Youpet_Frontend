@@ -12,20 +12,19 @@ import FormPet from "./Components/Functionality/Forms/Pet";
 import FormUser from "./Components/Functionality/Forms/User";
 import FormVet from "./Components/Functionality/Forms/Vet";
 import NavBar from "./Components/Functionality/Navbar/index";
-
 import Payment from "./Components/Functionality/Payment";
 import ErrorPay from "./Components/Functionality/Payment/ErrorPay";
-
 import AdminServiceDetail from "./Components/Functionality/PanelAdmin/AllServices/AdminServiceDetail";
 import PanelAdmin from "./Components/Functionality/PanelAdmin/Body/PanelAdmin";
+import UserPanel from "./Components/Functionality/UserPanel/Body/UserPanel";
 import AdminProfileDetail from "./Components/Functionality/PanelAdmin/Users/Detail";
-
 import ChooseVetTurn from "./Components/Functionality/Turns/ChooseVetTurn";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Home from "./Components/View/HomeFake/HomeFake";
 import { getMyUser } from "./Redux/actions";
 import Confirm from "./Components/Functionality/AuthService";
+import AdminVetDetail from "./Components/Functionality/PanelAdmin/VetInformation/VetDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,8 +50,10 @@ function App() {
         <Route exact path="/errorPay" element={<ErrorPay />} />
         <Route path="/user/:id" element={<AdminProfileDetail />} />
         <Route path="/serv/:id" element={<AdminServiceDetail />} />
+        <Route path="/adminvet/:id" element={<AdminVetDetail/>} />
         <Route path="/admin/*" element={<PanelAdmin />} />
         <Route path="/confirm/:confirmationCode" element={<Confirm />} />
+        <Route path="/userpanel/*" element={<UserPanel />} />
       </Routes>
     </div>
   );

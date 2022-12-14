@@ -1,26 +1,25 @@
 import {
   CLEAR_DETAILS,
   CLEAR_TURN,
-  CREATE_ADMIN,
   CREATE_SERVICE,
   CREATE_TURN,
   CREATE_VET,
-  DELETE_ADMIN,
+  CREATE_PET,
   DELETE_PET,
   DELETE_SERVICE,
   DELETE_TURN,
   DELETE_VET,
   FILTER_SERVICE,
-  GET_ADMINS,
-  GET_ADMIN_BY_NAME,
-  GET_ADMIN_DETAIL,
   GET_All_TURN,
-  GET_MYUSER, GET_PAYMENT_MP, GET_PETS,
+  GET_MYUSER,
+  GET_PAYMENT_MP,
+  GET_PETS,
   GET_PET_DETAIL,
   GET_SERVICES,
   GET_SERVICE_BY_NAME,
   GET_SERVICE_DETAIL,
   GET_TURN,
+  GET_USER_TURN,
   GET_USERS,
   GET_USER_BY_EMAIL,
   GET_USER_BY_NAME,
@@ -28,13 +27,25 @@ import {
   GET_VETS,
   GET_VET_BY_NAME,
   GET_VET_DETAIL,
-  UPDATE_ADMIN
+  UPDATE_SERVICE,
+  UPDATE_USER,
+  UPDATE_VET,
+  UPDATE_USER_BYPANEL,
+  REMOVE_PET,
+  GET_USER_PETS,
+  CANCEL_TURN
 } from "./const";
 
 const initialState = {
   pets: [],
   allPets: [],
   petDetail: [],
+  createPet:["nada"],
+  updateUserByPanel:["nada"],
+  removePet:["nada"],
+  cancelTurn:["nada"],
+  userPets:[],
+  turnsUser:[],
   vets: [],
   allVets: [],
   vetDetail: [],
@@ -46,16 +57,13 @@ const initialState = {
   createdTurn: [],
   services: [],
   serviceDetail: [],
-  createService: [],
   user: [],
   users: [],
   allUsers: [],
   userDetail: [],
-  admins: [],
-  allAdmins: [],
-  adminDetail: [],
   allServices: [],
-  paymentLink: {}
+  paymentLink: {},
+  myuser: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -103,6 +111,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         vets: deleteVet.filter((vet) => vet.id !== action.payload),
       };
+    case UPDATE_VET:
+      return {
+        ...state,
+        vets: state.vets.map((vet) =>
+          vet.id === action.payload.id ? action.payload : vet
+        ),
+      };
     case GET_SERVICES:
       return {
         ...state,
@@ -123,6 +138,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         services: [],
+      };
+    case UPDATE_SERVICE:
+      return {
+        ...state,
+        services: state.services.map((service) =>
+          service.id === action.payload.id ? action.payload : service
+        ),
       };
     case DELETE_SERVICE:
       const deleteService = state.allServices;
@@ -152,37 +174,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
-    case GET_ADMINS:
+    case UPDATE_USER:
       return {
         ...state,
-        admins: action.payload,
-      };
-    case GET_ADMIN_DETAIL:
-      return {
-        ...state,
-        adminDetail: action.payload,
-      };
-    case GET_ADMIN_BY_NAME:
-      return {
-        ...state,
-        admins: action.payload,
-      };
-    case CREATE_ADMIN:
-      return {
-        ...state,
-        admins: [],
-      };
-    case DELETE_ADMIN:
-      const deleteAdmin = state.allAdmins;
-      return {
-        ...state,
-        admins: deleteAdmin.filter((admin) => admin.id !== action.payload),
-      };
-    case UPDATE_ADMIN:
-      return {
-        ...state,
-        adminDetail: state.adminDetail.map((admin) =>
-          admin.id === action.payload.id ? action.payload : admin
+        users: state.users.map((user) =>
+          user.id === action.payload.id ? action.payload : user
         ),
       };
     case FILTER_SERVICE:
@@ -191,8 +187,8 @@ function rootReducer(state = initialState, action) {
         action.payload === ""
           ? allservices
           : allservices.filter(
-            (r) => r.type.toLowerCase() === action.payload.toLowerCase()
-          );
+              (r) => r.type.toLowerCase() === action.payload.toLowerCase()
+            );
       return {
         ...state,
         services: filter,
@@ -204,7 +200,6 @@ function rootReducer(state = initialState, action) {
         petDetail: [],
         serviceDetail: [],
         userDetail: [],
-        adminDetail: [],
       };
     case CREATE_TURN:
       return {
@@ -244,6 +239,36 @@ function rootReducer(state = initialState, action) {
         ...state,
         myuser: action.payload,
       };
+    case CREATE_PET:
+        return {
+          ...state,
+          createPet: [action.payload],
+        };
+    case UPDATE_USER_BYPANEL:
+        return {
+          ...state,
+          updateUserByPanel: [action.payload],
+        };
+    case GET_USER_PETS:
+        return {
+          ...state,
+          userPets: action.payload,
+        };
+    case GET_USER_TURN:
+        return {
+          ...state,
+          turnsUser: action.payload,
+        };
+    case CANCEL_TURN:
+        return {
+          ...state,
+          cancelTurn: [action.payload],
+        };
+    case REMOVE_PET:
+        return {
+          ...state,
+          removePet: [action.payload],
+        };
     default:
       return state;
   }

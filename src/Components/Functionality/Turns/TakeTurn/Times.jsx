@@ -31,6 +31,7 @@ function Times(props) {
 
   const Turns = useSelector((state) => state.turn);
   const createdTur = useSelector((state) => state.createdTurn);
+  const myuser = useSelector((state) => state.myuser);
 
   useEffect(() => {
     if (updateCalendar && vetSelect !== "none") {
@@ -101,11 +102,8 @@ function Times(props) {
 
   const handleClickTakeTurn = (e) => {
     if (prevButton === null) {
-      console.log("Debes de elegir al menos 1 hora");
+
     } else {
-      // const formDate =
-      //   props.date.toDateString() + " " + event.substring(0, 5) + ":00";
-      // let myDate = new Date(formDate);
 
       let startDate = new Date(slotSelected);
 
@@ -119,7 +117,8 @@ function Times(props) {
         inicialDate: startDate.toUTCString(),
         finishDate: finishDate.toUTCString(),
         VetId: vetSelect,
-        ServiceId: servId
+        ServiceId: servId,
+        UserId: myuser?.id || ""
       };
 
       dispatch(createTurn(turnInfo));

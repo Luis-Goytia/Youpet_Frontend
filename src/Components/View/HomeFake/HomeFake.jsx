@@ -9,9 +9,7 @@ import "./HomeFake.css";
 export default function Home() {
   const dispatch = useDispatch();
   const allVets = useSelector((state) => state.vets);
-  const allServices = useSelector(
-    (state) => state.services
-  );
+  const allServices = useSelector((state) => state.services);
 
   useEffect(() => {
     dispatch(getVets());
@@ -23,6 +21,7 @@ export default function Home() {
     dispatch(filterService(event.target.value));
     // dispatch(filterVets(event.target.value))
   }
+
   return (
     <div>
       <div className="buttonbar">
@@ -125,7 +124,6 @@ export default function Home() {
                     name={vet.name}
                     lastname={vet.lastname}
                     id={vet.id}
-    
                   />
                 </Link>
               </div>

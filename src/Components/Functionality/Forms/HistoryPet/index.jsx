@@ -27,9 +27,7 @@ function FormHistoryPet() {
         }}
         onSubmit={(values, { resetForm }) => {
           //funciones con las actions
-          console.log(values);
           resetForm();
-          console.log("formulario enviado");
           setFormSuccess(true);
           setTimeout(() => {
             setFormSuccess(false);

@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { ProSidebarProvider, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { tokens } from "../theme";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import userPlaceholder from "../../../../img/user-placeholder.png";
+
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import { getMyUser } from "../../../../Redux/actions";
+import PetsIcon from "@mui/icons-material/Pets";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import { useEffect } from "react";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
   return (
     <MenuItem
       active={selected === title}
@@ -34,15 +33,22 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
 export default function SideBar() {
   const theme = useTheme();
-  const dispatch = useDispatch();
-  const myuser = useSelector(state=> state.myuser);
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const myuser = useSelector((state) => state.myuser);
+  const navigate = useNavigate();
 
-  useEffect(()=> {
-    dispatch(getMyUser())
-  }, [dispatch])
+  
+
+ useEffect(()=>{
+  const path = `/`;
+  if (!(myuser?.id)){
+        navigate(path)
+  }
+ }, [myuser, navigate])
+
+  const ruta = "/userpanel";
 
   return (
     <Box
@@ -83,7 +89,7 @@ export default function SideBar() {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[400]}>
-                  ADMIN
+                  PANEL
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -95,13 +101,22 @@ export default function SideBar() {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="100px"
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
                   height="100px"
-                  src={myuser.img}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+                  width="100px"
+                  overflow="hidden"
+                  borderRadius="50%"
+                >
+                  <img
+                    alt="profile-user"
+                    height="100%"
+                    src={myuser?.img ? myuser.img : userPlaceholder}
+                    style={{ cursor: "pointer" }}
+                  />
+                </Box>
               </Box>
               <Box textAlign="center">
                 <Typography
@@ -110,85 +125,48 @@ export default function SideBar() {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {myuser.name} {myuser.lastname}
-                </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  {myuser?.name
+                    ? `${myuser.name} ${myuser.lastname}`
+                    : "No data"}
                 </Typography>
               </Box>
             </Box>
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+            <hr />
+            <Typography variant="h6">Info</Typography>
             <Item
-              title="Dashboard"
-              to="/admin"
-              icon={<HomeOutlinedIcon />}
+              title="Info"
+              to={ruta}
+              icon={<AccountCircleIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Data
-            </Typography>
+            <hr />
+            <Typography variant="h6">Pets</Typography>
             <Item
-              title="Users"
-              to="/admin/users"
-              icon={<PeopleOutlinedIcon />}
+              title="My pets"
+              to={ruta + "/MyPets"}
+              icon={<PetsIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Contacts Information"
-              to="/admin/contacts"
-              icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Vet Information"
-              to="/admin/allvets"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Service Information"
-              to="/admin/services"
-              icon={<ReceiptOutlinedIcon />}
+              title="Add new pet"
+              to={ruta + "/addpet"}
+              icon={<AddCircleIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Pages
-            </Typography>
+            <hr />
+            <Typography variant="h6">Settings</Typography>
             <Item
-              title="Vet Register"
-              to="/admin/vetregister"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Service Register"
-              to="/admin/servregister"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Calendar"
-              to="/admin/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              title="Update info"
+              to={ruta + "/update"}
+              icon={<ManageAccountsIcon />}
               selected={selected}
               setSelected={setSelected}
             />

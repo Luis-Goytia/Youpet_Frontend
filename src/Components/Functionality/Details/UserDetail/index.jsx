@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getPets, clearDetails } from "../../../../Redux/actions";
 import PetCard from "../../Cards/PetCard";
 

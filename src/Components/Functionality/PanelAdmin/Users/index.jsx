@@ -7,13 +7,11 @@ import { tokens } from "../theme";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import Header from "../Header";
-import { getAdmins, getUsers } from "../../../../Redux/actions";
+import { getUsers } from "../../../../Redux/actions";
 
 export default function Users() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
-  const admins = useSelector((state) => state.admins);
-  const allUsers = [...users, ...admins];
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -100,7 +98,6 @@ export default function Users() {
 
   useEffect(() => {
     dispatch(getUsers());
-    dispatch(getAdmins())
   }, [dispatch]);
 
   return (
@@ -139,7 +136,7 @@ export default function Users() {
         }}
       >
         <DataGrid
-          rows={allUsers}
+          rows={users}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />

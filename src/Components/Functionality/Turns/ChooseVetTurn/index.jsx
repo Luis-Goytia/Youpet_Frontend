@@ -37,7 +37,7 @@ function ChooseVetTurn() {
           setUsuario(user);
           setCargandoUsuario(false);
         } catch (error) {
-          console.log(error);
+          
         }
       }
     }

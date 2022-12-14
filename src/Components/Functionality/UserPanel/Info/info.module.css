@@ -1,0 +1,51 @@
+.tableImg {
+  width: 45px;
+  height: 45px;
+}
+
+
+
+.container {
+    width: 80vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.img_container {
+	width: 180px;
+	height: 180px;
+	margin: 10px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 4px white solid;
+    border-radius: 50%;
+  }
+
+  .img_user {
+    height: 100%;
+  }
+.turnsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

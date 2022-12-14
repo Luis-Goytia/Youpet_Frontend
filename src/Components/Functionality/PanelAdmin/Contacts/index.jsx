@@ -4,13 +4,11 @@ import { Box, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import Header from "../Header";
-import { getAdmins, getUsers } from "../../../../Redux/actions";
+import { getUsers } from "../../../../Redux/actions";
 
 export default function Contacts() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
-  const allAdmins = useSelector((state)=> state.admins);
-  const allUsers = [...users, ...allAdmins];
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -52,7 +50,6 @@ export default function Contacts() {
 
   useEffect(() => {
     dispatch(getUsers());
-    dispatch(getAdmins())
   }, [dispatch]);
 
   return (
@@ -92,7 +89,7 @@ export default function Contacts() {
       >
         <DataGrid
           checkboxSelection
-          rows={allUsers}
+          rows={users}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />

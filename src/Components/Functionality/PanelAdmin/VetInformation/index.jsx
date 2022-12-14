@@ -1,30 +1,31 @@
-import React, {useEffect, useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import Header from "../Header";
-import { getVets } from '../../../../Redux/actions';
+import { getVets } from "../../../../Redux/actions";
 
 export default function VetInformation() {
-  const dispatch = useDispatch()
-  const allVets = useSelector(state=> state.vets)
+  const dispatch = useDispatch();
+  const allVets = useSelector((state) => state.vets);
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  const [status, setStatus] = useState(true)
-
-  function handleStatus(event) {
-    event.preventDefault();
-    if(allVets.isActive === true) {
-      setStatus(false)
-    } else{
-      setStatus(true)
-    }
-  }
-
+  const colors = tokens(theme.palette.mode);  
   const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      renderCell: ({ row: { id } }) => {
+        return (
+          <Link to={`/adminvet/${id}`} className="text-decoration-none">
+            {id}
+          </Link>
+        );
+      },
+    },
     {
       field: "name",
       headerName: "Name",
@@ -50,8 +51,8 @@ export default function VetInformation() {
       cellClassName: "address-column--cell",
     },
     {
-      field:"tel",
-      headerName:"Telephon Number",
+      field: "tel",
+      headerName: "Telephon Number",
       flex: 1,
       cellClassName: "telephone-column--cell",
     },
@@ -68,12 +69,12 @@ export default function VetInformation() {
     {
       field: "inicialDate",
       headerName: "Inicial Date",
-      type:"date",
+      type: "date",
     },
     {
       field: "finishDate",
       headerName: "Finish Date",
-      type:"date",
+      type: "date",
     },
     {
       field: "isActive",
@@ -94,7 +95,7 @@ export default function VetInformation() {
             }
             borderRadius="4px"
             type="button"
-            onClick={handleStatus}
+            
           >
             {isActive === true && <AdminPanelSettingsOutlinedIcon />}
             {isActive === false && <LockOpenOutlinedIcon />}
@@ -104,9 +105,9 @@ export default function VetInformation() {
     },
   ];
 
-  useEffect(()=> {
-    dispatch(getVets())
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(getVets());
+  }, [dispatch]);
 
   return (
     <Box m="20px">
@@ -143,7 +144,11 @@ export default function VetInformation() {
           },
         }}
       >
-        <DataGrid rows={allVets} columns={columns} components={{ Toolbar: GridToolbar }}/>
+        <DataGrid
+          rows={allVets}
+          columns={columns}
+          components={{ Toolbar: GridToolbar }}
+        />
       </Box>
     </Box>
   );

@@ -45,7 +45,6 @@ const FormPet = () => {
         }}
         onSubmit={(values, { resetForm }) => {
           resetForm();
-          console.log("Form Completed");
           changeFormSent(true);
           setTimeout(() => changeFormSent(false), 5000);
         }}
