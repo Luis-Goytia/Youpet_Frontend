@@ -7,6 +7,9 @@ import Swal from "sweetalert2";
 import logo from "../../../../img/logo.png";
 import { getMyUser, getUserByEmail } from "../../../../Redux/actions";
 import "./index.css";
+import FacebookLogin from 'react-facebook-login';
+
+
 export default function Login() {
   const [formSuccess] = useState(false);
 
@@ -17,8 +20,78 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    dispatch(getMyUser());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (user.length < 1) dispatch(getUserByEmail(email));
   }, [dispatch, user, email]);
+
+ 
+
+  const responseFacebook = (response) => {
+    let username= response.name.split(' ')
+
+
+    // const datef= {
+    //   name: 'Veronica',
+    //   lastname: 'Diaz',
+    //   username: 'Veronicafblogin',
+    //   password: '5595092140540743',
+    //   img: `https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=5595092140540743&height=50&width=50&ext=1673573742&hash=
+    // AeQwnPQxWFkYB9nRTgE`,
+    //   email: 'vemodi@msn.com',
+    // }
+
+    // const datefMini= {
+    //   password: '5595092140540743',
+    //   email: 'vemodi@msn.com',
+    // };
+    
+    const datef= {
+      name: username[0],
+      lastname: username[1],
+      username: username[0] + "fblogin",
+      password:response.id,
+      img: response.picture.data.url,
+      email: response.email,
+    };
+
+    const datefMini= {
+      password:response.id,
+      email: response.email,
+    };
+
+      axios.post("https://youpet-production.up.railway.app/login/", datefMini ).then((res) => {
+        localStorage.setItem("jwt", res.data.data);
+        dispatch(getMyUser());
+        navigate("/");
+      }).catch((error) =>{
+        axios
+        .post("https://youpet-production.up.railway.app/register/", datef, {})
+        .then((res) => {
+          Swal.fire({
+            //icon: "succes",
+            title: `Done!
+            Check your inbox to verify your account`,
+            showConfirmButton: false,
+            timer: 5000,
+          });
+          /* navigate("/login"); */
+        })
+        .catch((error) =>
+          Swal.fire({
+            icon: "error",
+            title: "existe un error",
+            text: `${error}`,
+          })
+        );
+      })
+      
+       
+    console.log("datos",datef);
+    console.log(response);
+  }
 
   return (
     <div className="backgroud">
@@ -59,6 +132,7 @@ export default function Login() {
                 icon: "error",
                 title: "existe un error",
                 text: `${error.response.data}`,
+                
               })
             }
             );
@@ -113,11 +187,32 @@ export default function Login() {
                 </div>
                 <button type="submit" className="btn btn-primary ">
                   Submit
-                </button>
+                </button> 
                 {formSuccess && (
                   <p className="text-success">¡Welcome {user.name}!</p>
                 )}
+
+                
+              <div>
+                <br></br>
+                <br></br>
+
+              <FacebookLogin
+                  appId="932172101495929"
+                  autoLoad={false}
+                  fields="name,email,picture"
+                  callback={responseFacebook} 
+                  icon= "fa-facebook"/>
+
+                   </div>
+
+                   
+                   {/* <button onClick={()=>responseFacebook()}>Facebooooook</button> */}
+                   
+
               </Form>
+
+              
             </div>
           )}
         </Formik>

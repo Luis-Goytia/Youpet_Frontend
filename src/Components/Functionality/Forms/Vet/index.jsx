@@ -121,8 +121,8 @@ export default function VetForm() {
             alignItems="center"
             justifyContent="center"
           >
-            <Grid item lg={3}>
-              <Box>
+            <Grid item lg={2}>
+              <Box p="10px">
                 <Box>
                   <label>Name</label>
                 </Box>
@@ -140,8 +140,8 @@ export default function VetForm() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item lg={3}>
-              <Box>
+            <Grid item lg={2}>
+              <Box p="10px">
                 <Box>
                   <label>Lastname</label>
                 </Box>
@@ -162,7 +162,7 @@ export default function VetForm() {
               </Box>
             </Grid>
             <Grid item lg={3}>
-              <Box>
+              <Box p="10px">
                 <Box>
                   <label>Email</label>
                 </Box>
@@ -171,6 +171,7 @@ export default function VetForm() {
                     className="form-control"
                     type="email"
                     name="email"
+                    placeholder="example@example.com"
                     value={input.email}
                     placeholder="example@example.com"
                     onChange={(event) => handleInputName(event)}
@@ -180,8 +181,8 @@ export default function VetForm() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item lg={3}>
-              <Box>
+            <Grid item lg={5}>
+              <Box p="10px">
                 <Box>
                   <label>Address</label>
                 </Box>
@@ -200,7 +201,7 @@ export default function VetForm() {
               </Box>
             </Grid>
             <Grid item lg={3}>
-              <Box>
+              <Box p="10px">
                 <Box>
                   <label>Speciality</label>
                 </Box>
@@ -231,7 +232,7 @@ export default function VetForm() {
               </Box>
             </Grid>
             <Grid item lg={3}>
-              <Box>
+              <Box p="10px">
                 <Box>
                   <label>URL Image</label>
                 </Box>

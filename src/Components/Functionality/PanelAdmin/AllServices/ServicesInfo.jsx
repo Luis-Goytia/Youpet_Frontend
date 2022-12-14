@@ -13,13 +13,16 @@ export default function ServicesInfo() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "id", 
-    headerName: "ID",
-    renderCell: ({ row: { id } }) => {
-      return( 
-      <Link to={`/serv/${id}`} className="text-decoration-none">{id}</Link>
-      )
-    }, 
+    {
+      field: "id",
+      headerName: "ID",
+      renderCell: ({ row: { id } }) => {
+        return (
+          <Link to={`/serv/${id}`} className="text-decoration-none">
+            {id}
+          </Link>
+        );
+      },
     },
     {
       field: "name",

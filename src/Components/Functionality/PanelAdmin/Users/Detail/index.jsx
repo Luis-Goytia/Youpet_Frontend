@@ -13,17 +13,16 @@ import {
 } from "@mui/material";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-
 import Header from "../../Header";
 import {
   clearDetails,
   getUserDetail,
-  updateUser
-} from "../../../../../Redux/actions";
+  updateUser,
+  } from "../../../../../Redux/actions";
 
 export default function AdminProfileDetail() {
-  const theeme = useTheme();
   const navigate = useNavigate()
+  const theeme = useTheme();
   const colors = tokens(theeme.palette.mode);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -59,19 +58,21 @@ export default function AdminProfileDetail() {
     };
   }, [dispatch, id]);
 
+  
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Box>
           <Box p="20px">
-          <Link
-            to="/admin/users"
-            type="button"
-            className="text-decoration-none"
-          >
-            Back to users
-          </Link>
+            <Link
+              to="/admin/users"
+              type="button"
+              className="text-decoration-none"
+            >
+              Back to users
+            </Link>
           </Box>
           <Box m="20px">
             <Header title="USER" subtitle="Managing user" />
@@ -87,7 +88,12 @@ export default function AdminProfileDetail() {
                     {user.name} {user.lastname}
                   </h3>
                 </Box>
-                <Grid container spacing={10} alignItems="center" justifyContent="center">
+                <Grid
+                  container
+                  spacing={10}
+                  alignItems="center"
+                  justifyContent="center"
+                >
                   <Grid item lg={3}>
                     <Box>
                       <h3>Username:</h3>
@@ -174,3 +180,4 @@ export default function AdminProfileDetail() {
     </ColorModeContext.Provider>
   );
 }
+

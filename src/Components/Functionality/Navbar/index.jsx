@@ -14,6 +14,7 @@ import {
 import dropMenu from "./dropMenu.module.css";
 import "./Navbar.css";
 
+
 export default function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,6 +36,10 @@ export default function NavBar() {
     setName("");
   }
 
+  
+  
+  
+
   return (
     <>
       <nav className="navbar navbar-expand-md bg-info">
@@ -55,6 +60,7 @@ export default function NavBar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-1">
+              
               <div>
               {
                 myuser?.isAdmin === true ? (
@@ -80,7 +86,7 @@ export default function NavBar() {
                 🔎
               </button>
             </form>
-            {/* preguntar si esta logueado o no */}
+            
           </div>
           <div>
             <div className="d-flex">
@@ -105,6 +111,9 @@ export default function NavBar() {
             </div>
           </div>
         </div>
+        <div>     
+        
+          </div>            
       </nav>
     </>
   );

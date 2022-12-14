@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router"
 import { ColorModeContext, useMode } from "../../theme";
-import { Box, CssBaseline, ThemeProvider, Grid, Button } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider, Grid, Button, Typography } from "@mui/material";
 
 import Header from "../../Header";
-import { deleteService, getServiceDetail } from "../../../../../Redux/actions";
+import { clearDetails, deleteService, getServiceDetail } from "../../../../../Redux/actions";
 
 export default function AdminServiceDetail() {
   const { id } = useParams();
@@ -25,6 +25,9 @@ export default function AdminServiceDetail() {
 
   useEffect(() => {
     dispatch(getServiceDetail(id));
+    return () => {
+      dispatch(clearDetails());
+    };
   }, [dispatch, id]);
 
   return (
@@ -56,7 +59,9 @@ export default function AdminServiceDetail() {
               width="500px"
               height="350px"
             />
-            <h3>{service.name}</h3>
+            <Typography variant="h2" sx={{ m: "10px 0 5px 0" }}>
+              {service.name}
+            </Typography>
           </Box>
           <Grid container spacing={2} justifyContent="center" alignItems="center">
               <Grid item lg={3}>

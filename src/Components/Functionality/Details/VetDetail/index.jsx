@@ -36,7 +36,6 @@ export default function VetDetail() {
           </h1>
           <h2 className="vet-speciality">{vet.speciality}</h2>
         </div>
-        <h3>Average: {vet.average}</h3>
         <div>
           {vet.isFavorite ? (
             <button onClick={remfav}>❤️</button>
@@ -44,24 +43,6 @@ export default function VetDetail() {
             <button onClick={addFav}>🖤</button>
           )}
           <span>{vet.totalfav}</span>
-        </div>
-      </div>
-      <div className="vet-comments">
-        <div className="input-container">
-          <div className="input-card comment-cards">
-            <h3>Leave a comment:</h3>
-            <textarea className="vet-form-comment" type="text" />
-          </div>
-        </div>
-        <div className="user-comments">
-          <div className="comment-cards">
-            <h2 className="client-name">Nicolas Villareal:</h2>
-            <h3 className="client-comment">Excelente!</h3>
-          </div>
-          <div className="comment-cards">
-            <h2 className="client-name">Lucas Pantana:</h2>
-            <h3 className="client-comment">Muy buena atencion xd</h3>
-          </div>
         </div>
       </div>
     </div>
