@@ -82,7 +82,7 @@ export function createPet(payload) {
   return async function (dispatch) {
     let json = "";
     try {
-      await instance.post("https://youpet-production.up.railway.app/pet", payload);
+      await instance.post("/pet", payload);
       json = "ok"
     } catch (error) {
       json = "error"
@@ -98,7 +98,7 @@ export function createPet(payload) {
 
 export function deletePet(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`https://youpet-production.up.railway.app/pet/${id}`);
+    var json = await axios.delete(`/pet/${id}`);
     return dispatch({
       type: DELETE_PET,
       payload: json.data,
