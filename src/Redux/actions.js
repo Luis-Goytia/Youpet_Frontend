@@ -98,7 +98,7 @@ export function createPet(payload) {
 
 export function deletePet(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`/pet/${id}`);
+    var json = await instance.delete(`/pet/${id}`);
     return dispatch({
       type: DELETE_PET,
       payload: json.data,
@@ -137,7 +137,7 @@ export function getVetByName(name) {
 
 export function createVet(payload) {
   return async function (dispatch) {
-    let json = await axios.post("/vet", payload);
+    let json = await instance.post("/vet", payload);
     return dispatch({
       type: CREATE_VET,
       payload: json.data,
@@ -147,7 +147,7 @@ export function createVet(payload) {
 
 export function updateVet(id, payload) {
   return async function (dispatch) {
-    var json = await axios.put(`/vet/${id}`, payload);
+    var json = await instance.put(`/vet/${id}`, payload);
     return dispatch({
       type: UPDATE_VET,
       payload: json.data,
@@ -157,7 +157,7 @@ export function updateVet(id, payload) {
 
 export function deleteVet(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`/vet/${id}`);
+    var json = await instance.delete(`/vet/${id}`);
     return dispatch({
       type: DELETE_VET,
       payload: json.data,
@@ -196,7 +196,7 @@ export function getServiceDetail(id) {
 }
 export function createService(payload) {
   return async function (dispatch) {
-    let json = await axios.post("/service", payload);
+    let json = await instance.post("/service", payload);
     return dispatch({
       type: CREATE_SERVICE,
       payload: json.data,
@@ -206,7 +206,7 @@ export function createService(payload) {
 
 export function updateService(id, payload) {
   return async function (dispatch) {
-    var json = await axios.put(`/service/${id}`, payload);
+    var json = await instance.put(`/service/${id}`, payload);
     return dispatch({
       type: UPDATE_SERVICE,
       payload: json.data,
@@ -216,7 +216,7 @@ export function updateService(id, payload) {
 
 export function deleteService(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`/service/${id}`);
+    var json = await instance.delete(`/service/${id}`);
     return dispatch({
       type: DELETE_SERVICE,
       payload: json.data,
@@ -308,7 +308,7 @@ export function getTurn(payload) {
 
 export function getAllTurn(payload) {
   return async function (dispatch) {
-    let json = await axios.get(`/turn/`);
+    let json = await instance.get(`/turn/`);
     return dispatch({
       type: GET_All_TURN,
       payload: json.data,
@@ -318,7 +318,7 @@ export function getAllTurn(payload) {
 
 export function deleteTurn(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`/turn/${id}`);
+    var json = await instance.delete(`/turn/${id}`);
     return dispatch({
       type: DELETE_TURN,
       payload: json.data,
@@ -362,7 +362,7 @@ export function getPaymentMP(idUser,service) {
 
 export function addFavorites(id, userid) {
   return async function (dispatch) {
-    let json = await axios.post(`/vet/addFavorite`, {
+    let json = await instance.post(`/vet/addFavorite`, {
       id,
       userid,
     });
@@ -375,7 +375,7 @@ export function addFavorites(id, userid) {
 
 export function removeFav(id, userid) {
   return async function (dispatch) {
-    let json = await axios.post(`/vet/removeFavorite`, {
+    let json = await instance.post(`/vet/removeFavorite`, {
       id,
       userid,
     });
