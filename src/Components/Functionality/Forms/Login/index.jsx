@@ -1,7 +1,8 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import FacebookLogin from 'react-facebook-login';
+import {FacebookLoginButton} from "react-social-login-buttons"
+import {LoginSocialFacebook} from "reactjs-social-login"
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -28,9 +29,9 @@ export default function Login() {
   const responseFacebook = (response) => {
     let username = response.name.split(' ')
     const datef = {
-      name: username[0],
-      lastname: username[1],
-      username: username[0] + "fblogin",
+      name: response.first_name,
+      lastname: response.last_name,
+      username: response.userID + "fblogin",
       password: response.id,
       img: response.picture.data.url,
       email: response.email,
@@ -166,12 +167,13 @@ export default function Login() {
                 <div>
                   <br></br>
                   <br></br>
-                  <FacebookLogin
-                    appId="479032487649133"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    callback={responseFacebook}
-                    icon="fa-facebook" />
+                  <LoginSocialFacebook
+                  appId="692975102401845"
+                  onResolve={(e)=>responseFacebook(e.data)}
+                  onReject={(e)=> console.log(e)}
+                  >
+                    <FacebookLoginButton />
+                  </LoginSocialFacebook>
                 </div>
               </Form>
             </div>

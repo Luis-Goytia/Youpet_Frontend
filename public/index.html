@@ -30,7 +30,16 @@
     <title>Youpet</title>
   </head>
   <body>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script>
+      window.fbAsyncInit = function() {
+        window.FB.init({
+          appId            : '692975102401845',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v15.0'
+   });
+ };
+    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <div id="fb-root"></div>
