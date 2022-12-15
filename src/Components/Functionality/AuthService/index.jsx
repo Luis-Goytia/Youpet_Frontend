@@ -9,7 +9,7 @@ const Confirm = () => {
   useEffect(() => {
     if (confirmationCode)
       axios
-        .get(`http://localhost:3001/confirm/${confirmationCode}`)
+        .get(`https://youpet-production.up.railway.app/confirm/${confirmationCode}`)
         .then((response) => {
           setVerify(true);
         })

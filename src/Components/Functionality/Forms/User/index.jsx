@@ -92,7 +92,7 @@ function FormUser() {
         }}
         onSubmit={(values) => {
           axios
-            .post("http://localhost:3001/register/", values, {})
+            .post("https://youpet-production.up.railway.app/register/", values, {})
             .then((res) => {
               Swal.fire({
                 //icon: "succes",

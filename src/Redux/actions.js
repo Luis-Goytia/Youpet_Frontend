@@ -30,7 +30,7 @@ import {
   UPDATE_VET
 } from "./const";
 const instance = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://youpet-production.up.railway.app/",
 });
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem("jwt");
@@ -82,7 +82,7 @@ export function createPet(payload) {
   return async function (dispatch) {
     let json = "";
     try {
-      await instance.post("http://localhost:3001/pet", payload);
+      await instance.post("https://youpet-production.up.railway.app/pet", payload);
       json = "ok"
     } catch (error) {
       json = "error"
@@ -98,7 +98,7 @@ export function createPet(payload) {
 
 export function deletePet(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`http://localhost:3001/pet/${id}`);
+    var json = await axios.delete(`https://youpet-production.up.railway.app/pet/${id}`);
     return dispatch({
       type: DELETE_PET,
       payload: json.data,

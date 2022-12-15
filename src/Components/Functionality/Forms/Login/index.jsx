@@ -40,13 +40,13 @@ export default function Login() {
       email: response.email,
     };
 
-    axios.post("http://localhost:3001/login/", datefMini).then((res) => {
+    axios.post("https://youpet-production.up.railway.app/login/", datefMini).then((res) => {
       localStorage.setItem("jwt", res.data.data);
       dispatch(getMyUser());
       navigate("/");
     }).catch((error) => {
       axios
-        .post("http://localhost:3001/register/", datef, {})
+        .post("https://youpet-production.up.railway.app/register/", datef, {})
         .then((res) => {
           Swal.fire({
             title: `Done!
@@ -95,7 +95,7 @@ export default function Login() {
             return errors;
           }}
           onSubmit={(value) => {
-            axios.post("http://localhost:3001/login/", value).then((res) => {
+            axios.post("https://youpet-production.up.railway.app/login/", value).then((res) => {
               localStorage.setItem("jwt", res.data.data);
               dispatch(getMyUser());
               navigate("/");
