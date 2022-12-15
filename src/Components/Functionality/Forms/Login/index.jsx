@@ -166,7 +166,6 @@ export default function Login() {
                 )}
                 <div>
                   <br></br>
-                  <br></br>
                   <LoginSocialFacebook
                   appId="692975102401845"
                   onResolve={(e)=>responseFacebook(e.data)}
