@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-  ADD_FAVORITES, CANCEL_TURN, CLEAR_DETAILS,
+  CANCEL_TURN, CLEAR_DETAILS,
   CLEAR_TURN,
   CREATE_PET,
   CREATE_SERVICE,
@@ -30,7 +30,7 @@ import {
   UPDATE_VET
 } from "./const";
 const instance = axios.create({
-  baseURL: "https://youpet-production.up.railway.app",
+  baseURL: "http://localhost:3001",
 });
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem("jwt");
@@ -82,7 +82,7 @@ export function createPet(payload) {
   return async function (dispatch) {
     let json = "";
     try {
-      await instance.post("https://youpet-production.up.railway.app/pet", payload);
+      await instance.post("http://localhost:3001/pet", payload);
       json = "ok"
     } catch (error) {
       json = "error"
@@ -98,7 +98,7 @@ export function createPet(payload) {
 
 export function deletePet(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`https://youpet-production.up.railway.app/pet/${id}`);
+    var json = await axios.delete(`http://localhost:3001/pet/${id}`);
     return dispatch({
       type: DELETE_PET,
       payload: json.data,
@@ -137,7 +137,7 @@ export function getVetByName(name) {
 
 export function createVet(payload) {
   return async function (dispatch) {
-    let json = await axios.post("https://youpet-production.up.railway.app/vet", payload);
+    let json = await axios.post("/vet", payload);
     return dispatch({
       type: CREATE_VET,
       payload: json.data,
@@ -147,7 +147,7 @@ export function createVet(payload) {
 
 export function updateVet(id, payload) {
   return async function (dispatch) {
-    var json = await axios.put(`https://youpet-production.up.railway.app/vet/${id}`, payload);
+    var json = await axios.put(`/vet/${id}`, payload);
     return dispatch({
       type: UPDATE_VET,
       payload: json.data,
@@ -157,7 +157,7 @@ export function updateVet(id, payload) {
 
 export function deleteVet(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`https://youpet-production.up.railway.app/vet/${id}`);
+    var json = await axios.delete(`/vet/${id}`);
     return dispatch({
       type: DELETE_VET,
       payload: json.data,
@@ -196,7 +196,7 @@ export function getServiceDetail(id) {
 }
 export function createService(payload) {
   return async function (dispatch) {
-    let json = await axios.post("https://youpet-production.up.railway.app/service", payload);
+    let json = await axios.post("/service", payload);
     return dispatch({
       type: CREATE_SERVICE,
       payload: json.data,
@@ -206,7 +206,7 @@ export function createService(payload) {
 
 export function updateService(id, payload) {
   return async function (dispatch) {
-    var json = await axios.put(`https://youpet-production.up.railway.app/service/${id}`, payload);
+    var json = await axios.put(`/service/${id}`, payload);
     return dispatch({
       type: UPDATE_SERVICE,
       payload: json.data,
@@ -216,7 +216,7 @@ export function updateService(id, payload) {
 
 export function deleteService(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`https://youpet-production.up.railway.app/service/${id}`);
+    var json = await axios.delete(`/service/${id}`);
     return dispatch({
       type: DELETE_SERVICE,
       payload: json.data,
@@ -308,7 +308,7 @@ export function getTurn(payload) {
 
 export function getAllTurn(payload) {
   return async function (dispatch) {
-    let json = await axios.get(`https://youpet-production.up.railway.app/turn/`);
+    let json = await axios.get(`/turn/`);
     return dispatch({
       type: GET_All_TURN,
       payload: json.data,
@@ -318,7 +318,7 @@ export function getAllTurn(payload) {
 
 export function deleteTurn(id) {
   return async function (dispatch) {
-    var json = await axios.delete(`https://youpet-production.up.railway.app/turn/${id}`);
+    var json = await axios.delete(`/turn/${id}`);
     return dispatch({
       type: DELETE_TURN,
       payload: json.data,
@@ -347,10 +347,10 @@ export function filterService(payload) {
   };
 }
 
-export function getPaymentMP(service) {
+export function getPaymentMP(idUser,service) {
   return async function (dispatch) {
     let json = await instance.post(
-      `https://youpet-production.up.railway.app/payment/mp/552525`,
+      `/payment/mp/${idUser}`,
       service
     );
     return dispatch({
@@ -362,7 +362,7 @@ export function getPaymentMP(service) {
 
 export function addFavorites(id, userid) {
   return async function (dispatch) {
-    let json = await axios.post(`https://youpet-production.up.railway.app/vet/addFavorite`, {
+    let json = await axios.post(`/vet/addFavorite`, {
       id,
       userid,
     });
@@ -375,7 +375,7 @@ export function addFavorites(id, userid) {
 
 export function removeFav(id, userid) {
   return async function (dispatch) {
-    let json = await axios.post(`https://youpet-production.up.railway.app/vet/removeFavorite`, {
+    let json = await axios.post(`/vet/removeFavorite`, {
       id,
       userid,
     });
@@ -401,7 +401,7 @@ export function updateUserByPanel(payload, id) {
   return async function (dispatch) {
     let json = "";
     try {
-      await instance.put(`https://youpet-production.up.railway.app/user/${id}`, payload);
+      await instance.put(`/user/${id}`, payload);
       json = "ok"
     } catch (error) {
       json = "error"
@@ -426,7 +426,7 @@ export function removePetUser(id) {
   return async function (dispatch) {
     let json = "";
     try {
-      await instance.delete(`https://youpet-production.up.railway.app/pet/${id}`);
+      await instance.delete(`/pet/${id}`);
       json = "ok"
     } catch (error) {
       json = "error"
@@ -464,7 +464,7 @@ export function cancelTurnUser(id) {
   return async function (dispatch) {
     let json = "";
     try {
-      await instance.delete(`https://youpet-production.up.railway.app/turn/${id}`);
+      await instance.delete(`/turn/${id}`);
       json = "ok"
     } catch (error) {
       json = "error"

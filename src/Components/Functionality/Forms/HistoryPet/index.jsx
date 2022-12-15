@@ -16,12 +16,12 @@ function FormHistoryPet() {
         validate={(values) => {
           let errors = {};
           if (!values.description) {
-            errors.description = "Por favor ingresa la description";
+            errors.description = "Please enter the description";
           } else if (
             values.description.length === 0 ||
             values.description.length > 300
           ) {
-            errors.description = `Por favor acorta la description ${values.description}/300`;
+            errors.description = `Please shorten the description ${values.description}/300`;
             }
             return errors;
         }}

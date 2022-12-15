@@ -17,18 +17,27 @@ export default function ServiceDetail() {
     };
   }, [dispatch, id]);
 
-
   return (
     <div className="service-detail-card">
       <h1>{service.name}</h1>
-      <img src={service.img} alt="Not found" />
+
+      <div className="cardde">
+        <div className="cardde_image">
+          <img src={service.img} alt="Not found" />
+        </div>
+        <div className="cardde_title title-white"></div>
+      </div>
       <h2>{service.detail}</h2>
       <p>Timelapse: {service.timelapse} min</p>
-      <p>Price: ${service.price}</p>
+      <p className="textt">Price: ${service.price}</p>
       <div>
         {!myuser?.id ? (
-          <Link to={"/login"}>
-            <span>Sign in to take a turn</span>
+          <Link
+            to="/login"
+            type="button"
+            className="text-decoration-none btn btn-dark"
+          >
+            Sign in to take a turn
           </Link>
         ) : (
           <Link

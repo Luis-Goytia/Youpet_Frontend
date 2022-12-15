@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import "./AuthService.css"
 
 const Confirm = () => {
   const [verify, setVerify] = useState(null);
@@ -8,7 +9,7 @@ const Confirm = () => {
   useEffect(() => {
     if (confirmationCode)
       axios
-        .get(`https://youpet-production.up.railway.app/confirm/${confirmationCode}`)
+        .get(`http://localhost:3001/confirm/${confirmationCode}`)
         .then((response) => {
           setVerify(true);
         })
@@ -25,7 +26,8 @@ const Confirm = () => {
           <strong>Confirmed Account!</strong>
         </h3>
       </header>
-      <Link to={"/login"}>SIGN IN</Link>
+      <br />
+      <Link to={"/login"} type="button" className="text-decoration-none btn btn-primary">SIGN IN</Link>
     </div>
   );
 };

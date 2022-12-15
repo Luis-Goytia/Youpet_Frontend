@@ -28,7 +28,7 @@ function ChooseVetTurn() {
 
   useEffect(() => {
     async function cargarUsuario() {
-      const { data: user } = await axios.get("https://youpet-production.up.railway.app/user");
+      const { data: user } = await axios.get("http://localhost:3001/user");
       if (!user.password) {
         setCargandoUsuario(false);
         return;

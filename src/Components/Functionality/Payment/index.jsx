@@ -8,13 +8,15 @@ export default function Payment() {
   const PaymentLink = useSelector((state) => state.paymentLink);
   const Turns = useSelector(state => state.turn)
   
+  
  const turnInfo = {
   timelapse: Turns[0].service.name,
-  globalprice: Turns[0].service.price,
+   globalprice: Turns[0].service.price,
+   idUser :Turns[0].turn.userId
 };
   const handleClick = (e) => {
     dispatch(
-      getPaymentMP([
+      getPaymentMP(turnInfo.idUser,[
         {
           name: turnInfo.name,
           price: turnInfo.globalprice,

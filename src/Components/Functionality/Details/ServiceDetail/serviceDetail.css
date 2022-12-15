@@ -12,3 +12,59 @@
     align-items: center;
     padding: 1rem 2rem 2rem 2rem;
 }
+
+
+.cardde {
+    margin: 20px auto;
+    width: 500px;
+    height: 280px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 30px 7px rgba(69, 212, 240, 0.299), -3px -3px 30px 7px rgba(106, 215, 243, 0.475);
+    cursor: pointer;
+    transition: 0.4s;
+  
+  
+  }
+  
+  .cardde .cardde_image {
+    width: inherit;
+    height: inherit;
+    border-radius: 20px;
+  
+  }
+  
+  .cardde .cardde_image img {
+    width: inherit;
+    height: inherit;
+    border-radius: 20px;
+    object-fit: cover;
+  
+  }
+  
+
+  
+  .cardde:hover {
+    transform: scale(0.9, 0.9);
+    box-shadow: 5px 5px 30px 15px rgba(249, 206, 137, 0.231),
+      -5px -5px 30px 15px rgba(230, 179, 112, 0.561);
+  }
+  
+  .title-white {
+    color: #D94A98;
+  
+  }
+  
+  .title-black {
+    color: black;
+  }
+  
+  @media all and (max-width: 500px) {
+    .cardde-list {
+      /* On small screens, we are no longer using row direction but column */
+      flex-direction: column;
+    }
+  }
+
+  .textt{
+font-size: 40px;
+  }

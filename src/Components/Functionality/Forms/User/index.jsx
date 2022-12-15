@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+
 import userPlaceholder from "./user-placeholder.png"
 import userStyle from "./user.module.css"
 
 function FormUser() {
   const [formSuccess, setformSuccess] = useState(false);
-  const navigate = useNavigate();
   const [userImg, setUserImg] = useState("");
   const handleImageUpload = (e, setFieldValue) => {
     const file = e.target.files[0];
@@ -45,55 +44,55 @@ function FormUser() {
         validate={(values) => {
           let errors = {};
           if (!values.name) {
-            errors.name = "Por favor ingresa un nombre";
+            errors.name = "Please enter a name";
           } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-            errors.name = "Solo puedes ingresar Letras";
+            errors.name = "You can only enter letters";
           }
           if (!values.lastname) {
-            errors.lastname = "Por favor ingresa un apellido";
+            errors.lastname = "Please enter a last name";
           } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.name)) {
-            errors.lastname = "Solo puedes ingresar Letras";
+            errors.lastname = "You can only enter letters";
           }
           if (!values.username) {
-            errors.username = "Por favor ingresa un nombre";
+            errors.username = "Please enter a last username";
           } else if (!/^[a-zA-Z0-9\\-]{4,16}$/.test(values.username)) {
-            errors.username = "Solo puedes ingresar Letras";
+            errors.username = "You can enter letters and numbers";
           }
           if (!values.dni) {
-            errors.dni = "Por favor ingresa numero de dni";
+            errors.dni = "Please enter DNI number";
           } else if (!/^\d{4,9}$/.test(values.dni) || values.dni < 0) {
-            errors.dni = "DNI invalido";
+            errors.dni = "invalid DNI";
           }
           if (!values.email) {
-            errors.email = "Por favor ingresa un email";
+            errors.email = "You can only enter a valid email";
           } else if (
             !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
               values.email
             )
           ) {
-            errors.email = "Solo puedes ingresar un email valido";
+            errors.email = "You can only enter a valid email";
           }
           if (!values.passwordCopy) {
-            errors.passwordCopy = "Por favor ingresa una contraseña";
-          } else if (!/^[a-zA-Z0-9\\-]{4,16}$/.test(values.passwordCopy)) {
-            errors.passwordCopy = "Debe tener al menos 5 digitos";
+            errors.passwordCopy = "Please enter a password";
+          } else if (!/^[a-zA-Z0-9\\-]{7,16}$/.test(values.passwordCopy)) {
+            errors.passwordCopy = "Must have at least 8 digits";
           }
           if (!values.password) {
-            errors.password = "Por favor ingresa nuevamente contraseña";
+            errors.password = "Please enter password again";
           } else if (values.passwordCopy !== values.password) {
-            errors.password = "La contraseñas no conciden";
+            errors.password = "The passwords do not match";
           }
           if (!values.address) {
-            errors.adress = "Por favor ingresa una direccion";
+            errors.adress = "Please enter an address";
           } else if (values.address.length < 10 && values.address.length > 30) {
-            errors.adress = "Ingresa una direccion correcta";
+            errors.adress = "Enter a correct address";
           }
 
           return errors;
         }}
         onSubmit={(values) => {
           axios
-            .post("https://youpet-production.up.railway.app/register/", values, {})
+            .post("http://localhost:3001/register/", values, {})
             .then((res) => {
               Swal.fire({
                 //icon: "succes",
