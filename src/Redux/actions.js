@@ -30,7 +30,7 @@ import {
   UPDATE_VET
 } from "./const";
 const instance = axios.create({
-  baseURL: "https://youpet-production.up.railway.app/",
+  baseURL: "https://cute-smell-production.up.railway.app/",
 });
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem("jwt");
